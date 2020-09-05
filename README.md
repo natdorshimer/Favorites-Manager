@@ -48,7 +48,7 @@ Import-Module -Name FavoritesManager
 
     -path [<SwitchParameter>]
         Switch for returning the path that the selected alias points to. This has
-        higher priority than -fav and nullifies fav if selected
+        higher priority than -list and nullifies list if selected
 
     -clear [<SwitchParameter>]
         Clears list of favorites if selected. Asks for user confirmation
