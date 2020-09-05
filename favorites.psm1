@@ -11,7 +11,8 @@ New-Variable -Name favs_dict -Value (New-Object Collections.Specialized.OrderedD
 
 <# Public Interface#>
 
-function cdf([string] $alias, [switch]$add, [switch]$remove, [switch]$path, [switch]$clear, [switch]$list, [switch]$open)
+function cdf([string] $alias, [switch]$add, [switch]$remove, [switch]$path, 
+             [switch]$clear, [switch]$list, [switch]$open)
 {
     <#
     .SYNOPSIS
