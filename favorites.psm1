@@ -11,8 +11,7 @@ New-Variable -Name favs_dict -Value (New-Object Collections.Specialized.OrderedD
 
 <# Public Interface#>
 
-function cdf([string] $alias, [string]$add, [string]$remove, [string]$path, 
-            [switch]$a, [switch]$clear, [switch]$fav, [switch]$open)
+function cdf([string] $alias, [switch]$add, [switch]$remove, [switch]$path, [switch]$clear, [switch]$list, [switch]$open)
 {
     <#
     .SYNOPSIS
@@ -24,14 +23,29 @@ function cdf([string] $alias, [string]$add, [string]$remove, [string]$path,
         PS C:\> cdf 
             lists favorites
 
-        PS C:\Users\Natalie> cdf -a
+        PS C:\Users\Natalie> cdf -add
             Will add the current directory and the name of the directory to the list of favorites
 
-        PS C:\ cdf -path Natalie
+        PS C:\ cdf Natalie -path 
             Returns 'PS C:\Users\Natalie', the directory saved to the key 'Natalie
 
         PS C:\> cdf Natalie
             Changes directory to 'PS C:\Users\Natalie' since Natalie is saved in my list
+
+    .PARAMETER alias
+        The name of the favorite you wish to perform a command on.
+    .PARAMETER add
+        Switch for adding the selected alias (or name of current directory if none is selected) to the favorites list
+    .PARAMETER remove
+        Switch for removing the selected alias (or name of current dir if none selected) from the favs list
+    .PARAMETER clear
+        Clears list of favorites if selected. Asks for user confirmation
+    .PARAMETER path
+        Switch for returning the path that the selected alias points to. This has higher priority than -fav and nullifies fav if selected
+    .PARAMETER list
+        Returns the favorites dictionary if selected. cdf -list is the same thing as 'cdf' if no other commands are used
+    .PARAMETER open
+        Opens up favorites.txt in notepad if selected
 
     .EXAMPLE
         cdf 
@@ -94,7 +108,7 @@ function cdf([string] $alias, [string]$add, [string]$remove, [string]$path,
         GD                             C:\Users\Natalie\Google Drive
 
 
-        PS C:\Users\Natalie> cdf -remove GD
+        PS C:\Users\Natalie> cdf GD -remove 
         PS C:\Users\Natalie> cdf
 
         Name                           Value
@@ -114,7 +128,7 @@ function cdf([string] $alias, [string]$add, [string]$remove, [string]$path,
         Spectrogram                    C:\Users\Natalie\VS Dev\source\repos\Spectrogram Plus\Spectrogram Plus
 
 
-        PS C:\Users\Natalie> cdf -path Spectrogram
+        PS C:\Users\Natalie> cdf Spectrogram -path 
         C:\Users\Natalie\VS Dev\source\repos\Spectrogram Plus\Spectrogram Plus
     .EXAMPLE
         PS C:\Users\Natalie\Pictures> cdf
@@ -125,7 +139,7 @@ function cdf([string] $alias, [string]$add, [string]$remove, [string]$path,
         Documents                      C:\Users\Natalie\Documents
 
 
-        PS C:\Users\Natalie\Pictures> cdf -a
+        PS C:\Users\Natalie\Pictures> cdf -add
         PS C:\Users\Natalie\Pictures> cdf
 
         Name                           Value
@@ -144,16 +158,14 @@ function cdf([string] $alias, [string]$add, [string]$remove, [string]$path,
         break
     }
 
-    if($a) { Add-Favorite; break; }
+    if($add) { Add-Favorite $alias }
 
-    if($add) { Add-Favorite $add }
-
-    if($remove){ cdf_delete($remove) }
+    if($remove){ cdf_delete($alias)  }
 
     if($open){ notepad (Get-FavoritesPath) }
 
-    if($alias) {
-        # If the path is legitimate it defaults to  'cd $alias'
+    if($alias -and !$remove) {
+        # If the path is legitimate it defaults to 'cd $alias'
         if(Test-Path $alias) { 
             Set-Location $alias 
         } 
@@ -163,10 +175,10 @@ function cdf([string] $alias, [string]$add, [string]$remove, [string]$path,
     }
 
     if($path) {
-        return $script:favs_dict[$path]
+        return $script:favs_dict[$alias]
     }
     
-    if((!$alias -and !$open -and !$remove -and !$add) -or $fav) {
+    if((!$alias -and !$open -and !$remove -and !$add) -or $list) {
         return Get-Favorites
     }
 }
@@ -180,6 +192,8 @@ function Get-FavoritesPath() { return (Split-Path $profile) + ('\favorites.txt')
 
 function Get-FavoritesFile() { return Get-Content (Get-FavoritesPath) }
 
+function CurrentDirName() { return Split-Path -leaf -path (Get-Location) }
+
 function Clear-Favorites()
 {
     $confirmation = Read-Host "Are you sure you want to delete your favorites? (y/n)"
@@ -192,7 +206,11 @@ function Clear-Favorites()
 
 function cdf_delete($alias)
 {
-    <# Deletes $alias from the dictionary and updates favorites.txt #>
+    if(!$alias) { 
+        $alias = CurrentDirName
+    }
+
+    <# Deletes $alias or current directory name from the dictionary and updates favorites.txt #>
     if($script:favs_dict.Contains($alias))
     {
         $script:favs_dict.Remove($alias)
@@ -237,7 +255,6 @@ function Update-Dictionary()
     }
 }
 
-
 function Add-Favorite([string] $name)
 {
     <#
@@ -250,7 +267,7 @@ function Add-Favorite([string] $name)
         $alias = $name
     }
     else{
-        $alias = Split-Path -leaf -path (Get-Location)
+        $alias = CurrentDirName
     }
 
     $loc = (Get-Location).tostring()
