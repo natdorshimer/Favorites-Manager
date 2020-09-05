@@ -1,0 +1,131 @@
+# cdf
+PowerShell module that provides an easy interface for favoriting directories and moving between them
+
+
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/natdorshimer/favorites_module">
+    <img src="images\logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">A PowerShell Directory Favorites Manager<br/></h3>
+
+  <p align="center">
+    <a href="https://github.com/natdorshimer/favorites_module"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://github.com/natdorshimer/favorites_module\issues">Report Bug</a>
+    ·
+    <a href="hhttps://github.com/natdorshimer/favorites_module/issues">Request Feature</a>
+  </p>
+</p>
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Installation
+
+1. Download <a href="https://github.com/natdorshimer/favorites_module/blob/master/FavoritesManager/FavoritesManager.psm1">FavoritesManager.psm1</a> and place it in ```\WindowsPowerShell\Modules\FavoritesManager```. 
+This is typically in either ```C:\Users\UserName\Documents\WindowsPowerShell\``` or ```C:\Program Files\WindowsPowerShell\```
+```sh
+Ex: C:\Users\Natalie\Documents\WindowsPowerShell\Modules\FavoritesManager\FavoritesManager.psm1
+```
+2. Import the module in your ```$profile``` to make it available when you run PowerShell. Run ```notepad $profile``` in PowerShell to open the profile in notepad. In the profile insert the following line:
+```sh
+Import-Module -Name FavoritesManager
+```
+
+## Syntax
+    SYNTAX
+      cdf [[-alias] <String>] [-add] [-remove] [-path] [-clear] [-list] [-open]
+      [<CommonParameters>]
+## Parameters
+    -alias <String>
+        The name of the favorite you wish to perform a command on.
+
+    -add [<SwitchParameter>]
+        Switch for adding the selected alias (or name of current directory if none
+        is selected) to the favorites list
+
+    -remove [<SwitchParameter>]
+        Switch for removing the selected alias (or name of current dir if none
+        selected) from the favs list
+
+    -path [<SwitchParameter>]
+        Switch for returning the path that the selected alias points to. This has
+        higher priority than -fav and nullifies fav if selected
+
+    -clear [<SwitchParameter>]
+        Clears list of favorites if selected. Asks for user confirmation
+
+    -list [<SwitchParameter>]
+        Returns the favorites dictionary if selected. cdf -list is the same thing
+        as 'cdf' if no other commands are used
+
+    -open [<SwitchParameter>]
+        Opens up favorites.txt in notepad if selected
+
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+_For more examples, type_ ```Get-Help cdf -detailed``` _in PowerShell to see the full documentation_
+
+```sh
+PS C:\Users\Natalie\Pictures> cdf
+
+Name                           Value
+----                           -----
+code                           C:\Users\Natalie\code
+Documents                      C:\Users\Natalie\Documents
+GD                             C:\Users\Natalie\Google Drive
+
+PS C:\> cdf code
+PS C:\Users\Natalie\code>
+```
+
+```sh
+PS C:\Users\Natalie\Pictures> cdf -add
+PS C:\Users\Natalie\Pictures> cdf
+
+Name                           Value
+----                           -----
+code                           C:\Users\Natalie\code
+Documents                      C:\Users\Natalie\Documents
+GD                             C:\Users\Natalie\Google Drive
+Pictures                       C:\Users\Natalie\Pictures
+```
+
+```sh
+PS C:\Users\Natalie> cdf GD -remove 
+PS C:\Users\Natalie> cdf
+
+Name                           Value
+----                           -----
+code                           C:\Users\Natalie\code
+Documents                      C:\Users\Natalie\Documents
+Pictures                       C:\Users\Natalie\Pictures
+```
+
+
+
+<!-- ROADMAP 
+## Roadmap
+
+See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).-->
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+
