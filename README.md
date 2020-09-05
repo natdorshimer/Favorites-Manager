@@ -16,7 +16,7 @@ PowerShell module that provides an easy interface for favoriting directories and
     <br />
     <a href="https://github.com/natdorshimer/favorites_module\issues">Report Bug</a>
     ·
-    <a href="hhttps://github.com/natdorshimer/favorites_module/issues">Request Feature</a>
+    <a href="https://github.com/natdorshimer/favorites_module/issues">Request Feature</a>
   </p>
 </p>
 
