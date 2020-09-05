@@ -42,7 +42,7 @@ function cdf([string] $alias, [switch]$add, [switch]$remove,
     .PARAMETER clear
         Clears list of favorites if selected. Asks for user confirmation
     .PARAMETER path
-        Switch for returning the path that the selected alias points to. This has higher priority than -fav and nullifies fav if selected
+        Switch for returning the path that the selected alias points to. This has higher priority than -list and nullifies -list if selected
     .PARAMETER list
         Returns the favorites dictionary if selected. cdf -list is the same thing as 'cdf' if no other commands are used
     .PARAMETER open
