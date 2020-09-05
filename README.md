@@ -22,8 +22,7 @@ PowerShell module that provides an easy interface for favoriting directories and
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-To get a local copy up and running follow these simple steps.
+To use cdf in the PowerShell command line you'll have to add <a href="https://github.com/natdorshimer/favorites_module/blob/master/FavoritesManager/FavoritesManager.psm1">FavoritesManager.psm1</a> to your modules and then import the module in the profile script, ```Microsoft.PowerShell_profile.ps1```
 
 ### Installation
 
