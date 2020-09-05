@@ -1,7 +1,4 @@
 # cdf
-PowerShell module that provides an easy interface for favoriting directories and moving between them
-
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
