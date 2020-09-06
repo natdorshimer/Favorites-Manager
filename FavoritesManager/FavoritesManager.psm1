@@ -46,7 +46,7 @@ function cdf([string] $alias, [switch]$add, [switch]$remove,
     .PARAMETER list
         Returns the favorites dictionary if selected. cdf -list is the same thing as 'cdf' if no other commands are used
     .PARAMETER open
-        Opens up favorites.txt in notepad if selected
+        Opens up favorites.txt in a text editor if selected
 
     .EXAMPLE
         cdf 
@@ -118,7 +118,7 @@ function cdf([string] $alias, [switch]$add, [switch]$remove,
 
     .EXAMPLE
         cdf -open
-        Opens favorites.txt in notepad
+        Opens favorites.txt 
 
     .EXAMPLE
         PS C:\Users\Natalie> cdf
@@ -163,7 +163,7 @@ function cdf([string] $alias, [switch]$add, [switch]$remove,
 
     if($remove){ cdf_delete($alias)  }
 
-    if($open){ notepad (Get-FavoritesPath) }
+    if($open){ Invoke-Item (Get-FavoritesPath) }
 
     if($alias -and !$remove) {
         # If the path is legitimate it defaults to 'cd $alias'
