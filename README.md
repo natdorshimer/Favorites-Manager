@@ -114,11 +114,3 @@ Pictures                       C:\Users\Natalie\Pictures
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).-->
 
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-
-
