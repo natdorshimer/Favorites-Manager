@@ -23,12 +23,9 @@ To use cdf in the PowerShell command line you'll have to add <a href="https://gi
 
 ### Installation
 
-1. Download <a href="https://github.com/natdorshimer/favorites_module/blob/master/FavoritesManager/FavoritesManager.psm1">FavoritesManager.psm1</a> and save it to ```\WindowsPowerShell\Modules\FavoritesManager\FavoritesManager.psm1```. 
-This is typically in either ```C:\Users\UserName\Documents\WindowsPowerShell\``` or ```C:\Program Files\WindowsPowerShell\```
-2. Import the module in your ```$profile``` to make it available when you run PowerShell. Run ```notepad $profile``` in PowerShell to open the profile in notepad. In the profile insert the following line:
-```sh
-Import-Module -Name FavoritesManager
-```
+1. Download <a href="https://github.com/natdorshimer/favorites_module/blob/master/FavoritesManager/FavoritesManager.psm1">FavoritesManager.psm1</a>
+
+2. Save it to ```\WindowsPowerShell\Modules\FavoritesManager\FavoritesManager.psm1```. This is typically in either ```C:\Users\UserName\Documents\WindowsPowerShell\``` or ```C:\Program Files\WindowsPowerShell\```
 
 ## Syntax
     SYNTAX
